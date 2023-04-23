@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         moveSpeed = 1f;
-        jumpForce = 2f;
-        isJumping = false;
+        jumpForce = 30f;
+        isJumping = true;
 
     }
 
@@ -30,6 +30,22 @@ public class PlayerController : MonoBehaviour
         moveVertical = Input.GetAxisRaw("Vertical");
     }
 
+    // Checks for Collision with objects that are also rigidbodies (not triggers)
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform"))
+        {
+            isJumping = false; 
+        }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            UnityEngine.Debug.Log("Enemy touched.");
+        }
+
+    }
+
+
     void FixedUpdate()
     {
         if(moveHorizontal > 0.1f || moveHorizontal < -0.1f)
@@ -37,9 +53,10 @@ public class PlayerController : MonoBehaviour
             rb2D.AddForce(new Vector2(moveHorizontal * moveSpeed, 0f), ForceMode2D.Impulse);
         }
 
-        if (moveVertical > 0.1f)
+        if (moveVertical > 0.1f && !isJumping)
         {
             rb2D.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
+            isJumping = true;
         }
     }
 }
