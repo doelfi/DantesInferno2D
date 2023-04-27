@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private int lifes = 3;
     private int coins = 0;
     private int levelCoins = 0;
+    private int levelLifes = 0; // in case coins get turned into a life
    
 
     // Start is called before the first frame update
@@ -31,6 +32,43 @@ public class PlayerController : MonoBehaviour
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveVertical = Input.GetAxisRaw("Vertical");
     }
+
+    
+    private void takeDamage()
+    {
+        lifes -= 1;
+        coins = coins - levelCoins;
+        levelCoins = 0;
+        lifes = lifes - levelLifes;
+        if (lifes < 1)
+        {
+            UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
+        }
+        UnityEngine.Debug.Log("took damage, reset level"); // Placeholder
+    }
+
+    private void collectCoin()
+    {
+        coins += 1;
+        levelCoins += 1;
+        if (coins >= 9)
+        {
+            lifes += 1;
+            levelLifes += 1;
+            coins = 0;
+        }
+    }
+
+    public int getLifes() { return lifes; }
+    public int getCoins() { return coins; }
+
+    // has to be called by the finish line trigger event
+    public void onLevelSwitch()
+    {
+        levelLifes = 0;
+        levelCoins = 0;
+    }
+    
 
 
     // Checks for Collision with objects that are also rigidbodies (not triggers)
