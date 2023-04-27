@@ -5,22 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
+    // movement settings
     private Rigidbody2D rb2D;
-    private float jumpForce;
-    private float moveSpeed;
-    private bool isJumping;
+    private float jumpForce = 30f;
+    private float moveSpeed = 1f;
+    private bool isJumping = true;
     private float moveHorizontal;
     private float moveVertical;
+
+    // stats
+    private int lifes = 3;
+    private int coins = 0;
+    private int levelCoins = 0;
    
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        moveSpeed = 1f;
-        jumpForce = 30f;
-        isJumping = true;
-
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
         moveHorizontal = Input.GetAxisRaw("Horizontal");
         moveVertical = Input.GetAxisRaw("Vertical");
     }
+
 
     // Checks for Collision with objects that are also rigidbodies (not triggers)
     void OnCollisionEnter2D(Collision2D other)
