@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     // Checks for Collision with objects that are also rigidbodies (not triggers)
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Platform"))
+        if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             isJumping = false; 
         }
