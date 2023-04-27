@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,6 +16,9 @@ public class PlayerController : MonoBehaviour
     private float moveVertical;
 
     // stats
+    [SerializeField]
+    private GameObject UIcanvas;
+    private UIcontroller UIscript;
     private int lifes = 3;
     private int coins = 0;
     private int levelCoins = 0;
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
+        UIscript = UIcanvas.GetComponent<UIcontroller>();
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class PlayerController : MonoBehaviour
         coins = coins - levelCoins;
         levelCoins = 0;
         lifes = lifes - levelLifes;
+        UIscript.updateUI(lifes, coins);
         if (lifes < 1)
         {
             UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
@@ -57,6 +64,7 @@ public class PlayerController : MonoBehaviour
             levelLifes += 1;
             coins = 0;
         }
+        UIscript.updateUI(lifes, coins);
     }
 
     public int getLifes() { return lifes; }
@@ -82,6 +90,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             UnityEngine.Debug.Log("Enemy touched.");
+            takeDamage();
         }
 
     }
