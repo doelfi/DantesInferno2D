@@ -9,8 +9,8 @@ public class UIcontroller : MonoBehaviour
 
     public TMP_Text panel;
 
-    public void updateUI(int lifes, int coins)
+    public void updateUI()
     {
-        panel.text = "Lifes: " + lifes.ToString() + " Coins: " + coins.ToString();
+        panel.text = "Lifes: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
     }
 }
