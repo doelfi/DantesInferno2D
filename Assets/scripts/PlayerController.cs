@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     // movement settings
     private Rigidbody2D rb2D;
     private float jumpForce = 30f;
-    private float moveSpeed = 1f;
+    private float moveSpeed = 1.5f;
     private bool isJumping = true;
     private float moveHorizontal;
     private float moveVertical;
