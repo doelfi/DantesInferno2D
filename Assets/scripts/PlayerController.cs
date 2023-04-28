@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject UIcanvas;
     private UIcontroller UIscript;
-    private int lifes = 3;
-    private int coins = 0;
     private int levelCoins = 0;
     private int levelLifes = 0; // in case coins get turned into a life
    
@@ -42,38 +41,46 @@ public class PlayerController : MonoBehaviour
     
     private void takeDamage()
     {
-        lifes -= 1;
-        coins = coins - levelCoins;
+        GameStats.lifes -= 1;
+        GameStats.coins = GameStats.coins - levelCoins;
         levelCoins = 0;
-        lifes = lifes - levelLifes;
-        UIscript.updateUI(lifes, coins);
-        if (lifes < 1)
+        GameStats.lifes = GameStats.lifes - levelLifes;
+        UIscript.updateUI();
+
+
+        if (GameStats.lifes < 1)
         {
             UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
         }
-        UnityEngine.Debug.Log("took damage, reset level"); // Placeholder
+
+        UnityEngine.Debug.Log("took damage");
 
         // doesn't look nice visually but brings the player back to start
-        Vector3 newPosition = new Vector3(0,1,0);
-        transform.position = newPosition;
+        // Problem: coins don't get replaced
+        // Vector3 newPosition = new Vector3(0,1,0);
+        // transform.position = newPosition;
+
+        // reloads level, so coins will reappear
+        // Problem: lifes and coins are set to the standard value again
+        SceneManager.LoadScene(1); // number might change over time
 
     }
 
     public void collectCoin()
     {
-        coins += 1;
+        GameStats.coins += 1;
         levelCoins += 1;
-        if (coins >= 9)
+        if (GameStats.coins >= 9)
         {
-            lifes += 1;
+            GameStats.lifes += 1;
             levelLifes += 1;
-            coins = 0;
+            GameStats.coins = 0;
         }
-        UIscript.updateUI(lifes, coins);
+        UIscript.updateUI();
     }
 
-    public int getLifes() { return lifes; }
-    public int getCoins() { return coins; }
+    // public int getLifes() { return lifes; } // probably not needed anymore
+    // public int getCoins() { return coins; }
 
     // has to be called by the finish line trigger event
     public void onLevelSwitch()
