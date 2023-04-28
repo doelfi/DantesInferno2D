@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
         }
         UnityEngine.Debug.Log("took damage, reset level"); // Placeholder
+
+        // doesn't look nice visually but brings the player back to start
+        Vector3 newPosition = new Vector3(0,1,0);
+        transform.position = newPosition;
+
     }
 
     public void collectCoin()
