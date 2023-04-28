@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Debug.Log("took damage, reset level"); // Placeholder
     }
 
-    private void collectCoin()
+    public void collectCoin()
     {
         coins += 1;
         levelCoins += 1;
