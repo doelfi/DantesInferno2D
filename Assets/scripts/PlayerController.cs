@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         UIscript = UIcanvas.GetComponent<UIcontroller>();
+        UIscript.updateUI();
     }
 
     // Update is called once per frame
