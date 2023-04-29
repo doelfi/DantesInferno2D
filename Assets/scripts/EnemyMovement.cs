@@ -6,57 +6,59 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Set your parameters in the Inspector.
-    public Vector3 targetOffset = Vector3.left * 10f;
-    public float speed = 1f;
-    private Vector3 startPosition;
+    // Inspired by: https://www.noveltech.dev/simple-patrolling-monster-unity/
+    public float mMovementSpeed = 3.0f;
+    public bool bIsGoingRight = true;
 
-    // Make Start a coroutine that begins 
-    // as soon as our object is enabled.
-    IEnumerator Start()
+    public float mRaycastingDistance = 0.5f;
+
+    private SpriteRenderer _mSpriteRenderer;
+
+    void Start()
     {
+        _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _mSpriteRenderer.flipX = bIsGoingRight;
+    }
 
-        startPosition = transform.position;
+    void Update()
+    {
+        Vector3 directionTranslation = (bIsGoingRight) ? transform.right : -transform.right;
+        directionTranslation *= Time.deltaTime * mMovementSpeed;
 
-        // Then, pick our destination point offset from our current location.
-        Vector3 targetPosition = transform.position + targetOffset;
+        transform.Translate(directionTranslation);
 
-        // I'm sure there is a better way to solve this
-        // But it works.
-        while(true)
+
+        CheckForWalls();
+        CheckForPlatform();
+    }
+
+    private void CheckForWalls()
+    {
+        Vector3 raycastDirection = (bIsGoingRight) ? Vector3.right : Vector3.left;
+        Vector3 offset = (bIsGoingRight) ? new Vector3(0.35f, 0.25f, 0f) : new Vector3(-0.35f, 0.25f, 0f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + raycastDirection - offset, raycastDirection, 0.1f); //* mRaycastingDistance 
+
+        if (hit.collider != null)
         {
-            // Loop until we're within a certain tolerance of our target.
-            // might have to adjust the tolerance
-            while (Vector3.SqrMagnitude(transform.position - targetPosition) > 0.1)
+            if ((hit.transform.tag == "Wall") || (hit.transform.tag == "Spike"))
             {
+                bIsGoingRight = !bIsGoingRight;
+                _mSpriteRenderer.flipX = bIsGoingRight;
 
-                // Move one step toward the target at our given speed.
-                transform.position = Vector3.MoveTowards(
-                      transform.position,
-                      targetPosition,
-                      speed * Time.deltaTime
-                 );
-
-                // Wait one frame then resume the loop.
-                yield return null;
-            }
-
-            // going back to the starting position
-            while (Vector3.SqrMagnitude(transform.position - startPosition) > 0.1)
-            {
-
-                // Move one step toward the target at our given speed.
-                transform.position = Vector3.MoveTowards(
-                      transform.position,
-                      startPosition,
-                      speed * Time.deltaTime
-                 );
-
-                // Wait one frame then resume the loop.
-                yield return null;
             }
         }
-       
+    }
 
+    private void CheckForPlatform()
+    {
+        Vector3 raycastDirection = Vector3.down;
+        Vector3 offset = (bIsGoingRight) ? new Vector3(0.5f,0f,0f) : new Vector3(-0.5f,0f,0f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + raycastDirection + offset, raycastDirection, 0.5f); //* mRaycastingDistance 
+
+        if (hit.collider == null)
+        {
+            bIsGoingRight = !bIsGoingRight;
+            _mSpriteRenderer.flipX = bIsGoingRight;
+        }
     }
 }
