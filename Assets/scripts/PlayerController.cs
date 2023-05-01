@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    
+    // prevents that the player can jump mid-air if he only runs of a platform without jumping
     void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
