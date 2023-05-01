@@ -15,10 +15,19 @@ public class PlayerController : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
+    // old movement variables
+    /*
     [SerializeField]
     private float jumpForce = 30f;
     [SerializeField]
     private float moveSpeed = 1.5f;
+    */
+
+    // new movement variables
+    [SerializeField]
+    private float _speed = 8f;
+    [SerializeField]
+    private float _jumpingSpeed = 25f;
 
     // stats
     [SerializeField]
@@ -39,8 +48,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveHorizontal = Input.GetAxisRaw("Horizontal");
-        moveVertical = Input.GetAxisRaw("Vertical");
+        //moveHorizontal = Input.GetAxisRaw("Horizontal");
+        //moveVertical = Input.GetAxisRaw("Vertical");
+
+        // MOVEMENT
+        float horizontalInput = Input.GetAxis("Horizontal");
+        transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
+
+        // JUMPING
+        //float verticalInput = Input.GetAxis("Vertical"); // this gives an absurd boost, I don't know why
+        if ((Input.GetKeyDown("space") || Input.GetKeyDown("up")) && !isJumping)
+        {
+            rb2D.velocity += new Vector2(0f, _jumpingSpeed);
+        }
     }
 
     
@@ -101,7 +121,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
-            isJumping = false; 
+            // prevents a jump if the player only touches the platform from the side
+            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
+            if(transform.position.y >= (other.transform.position.y + 1))
+                isJumping = false; 
         }
 
         if (other.gameObject.CompareTag("Enemy"))
@@ -112,7 +135,31 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    
+    // prevents a bug where a player running into another platform while staying on one can't jump anymore afterwards
+    // this happens because the new platform puts isJumping = true while the platform the player is standing only reacts on first collision
+    // has the drawback that the jumping force seems increased by a lot probably because collision exist isn't fast checked fast enough and the player gets an extra boost
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
+        {
+            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
+            if (transform.position.y >= (other.transform.position.y + 1))
+                isJumping = false;
+        }
+    }
+    
 
+    
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
+        {
+            isJumping = true;
+        }
+    }
+
+    /*
     void FixedUpdate()
     {
         if(moveHorizontal > 0.1f || moveHorizontal < -0.1f)
@@ -126,4 +173,5 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
         }
     }
+    */
 }
