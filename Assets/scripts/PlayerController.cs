@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private UIcontroller UIscript;
     private int levelCoins = 0;
     private int levelLifes = 0; // in case coins get turned into a life
+
+    private int sceneID;
    
 
     // Start is called before the first frame update
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         UIscript = UIcanvas.GetComponent<UIcontroller>();
         UIscript.updateUI();
+        sceneID = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -80,14 +83,8 @@ public class PlayerController : MonoBehaviour
 
         UnityEngine.Debug.Log("took damage");
 
-        // doesn't look nice visually but brings the player back to start
-        // Problem: coins don't get replaced
-        // Vector3 newPosition = new Vector3(0,1,0);
-        // transform.position = newPosition;
-
-        // reloads level, so coins will reappear
-        //FIXME: needs to be adjusted for every scene
-        SceneManager.LoadScene(1); // number might change over time
+        // reloads level, so coins and enemies will reappear
+        SceneManager.LoadScene(sceneID);
 
     }
 
