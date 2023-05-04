@@ -122,15 +122,27 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             // prevents a jump if the player only touches the platform from the side
-            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
+            // UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
             if(transform.position.y >= (other.transform.position.y + 1))
                 isJumping = false; 
         }
 
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Spike"))
         {
-            UnityEngine.Debug.Log("Enemy touched.");
-            takeDamage();
+            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
+            UnityEngine.Debug.Log(transform.position.y);
+            UnityEngine.Debug.Log(other.transform.position.y);
+            if (other.gameObject.CompareTag("Enemy") && transform.position.y > (other.transform.position.y + 0.8))
+            {
+                UnityEngine.Debug.Log("drop down attack!");
+            }
+
+            else
+            {
+                UnityEngine.Debug.Log("Enemy touched.");
+                takeDamage();
+            }
+               
         }
 
     }
@@ -143,7 +155,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
-            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
+            //UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
             if (transform.position.y >= (other.transform.position.y + 1))
                 isJumping = false;
         }
