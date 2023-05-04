@@ -101,8 +101,6 @@ public class PlayerController : MonoBehaviour
         UIscript.updateUI();
     }
 
-    // public int getLifes() { return lifes; } // probably not needed anymore
-    // public int getCoins() { return coins; }
 
     // has to be called by the finish line trigger event
     public void onLevelSwitch()
@@ -110,8 +108,7 @@ public class PlayerController : MonoBehaviour
         levelLifes = 0;
         levelCoins = 0;
     }
-    
-
+   
 
     // Checks for Collision with objects that are also rigidbodies (not triggers)
     void OnCollisionEnter2D(Collision2D other)
