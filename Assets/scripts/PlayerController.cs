@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         // transform.position = newPosition;
 
         // reloads level, so coins will reappear
-        // Problem: lifes and coins are set to the standard value again
+        //FIXME: needs to be adjusted for every scene
         SceneManager.LoadScene(1); // number might change over time
 
     }
@@ -122,19 +122,16 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             // prevents a jump if the player only touches the platform from the side
-            // UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
             if(transform.position.y >= (other.transform.position.y + 1))
                 isJumping = false; 
         }
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Spike"))
         {
-            UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
-            UnityEngine.Debug.Log(transform.position.y);
-            UnityEngine.Debug.Log(other.transform.position.y);
+            // if player is above enemy (with some margin of error) the enemy dies otherwise the player gets dealt damage
             if (other.gameObject.CompareTag("Enemy") && transform.position.y > (other.transform.position.y + 0.8))
             {
-                UnityEngine.Debug.Log("drop down attack!");
+                Destroy(other.gameObject);
             }
 
             else
@@ -155,7 +152,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
-            //UnityEngine.Debug.Log(transform.position.y - (other.transform.position.y + 1));
             if (transform.position.y >= (other.transform.position.y + 1))
                 isJumping = false;
         }
