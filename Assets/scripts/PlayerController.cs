@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         levelLifes = 0;
         levelCoins = 0;
-        GameStats.runTimes[sceneID - 1] = Mathf.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad); // very basic speed run mechanic
+        GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad); // very basic speed run mechanic
         SceneManager.LoadScene(sceneID + 1);
     }
    
