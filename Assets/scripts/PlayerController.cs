@@ -126,6 +126,8 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.CompareTag("Enemy") && transform.position.y > (other.transform.position.y + 0.8))
             {
                 Destroy(other.gameObject);
+                rb2D.velocity += new Vector2(0f, _jumpingSpeed * 0.5f); // give a little boost upwards when enemy is destroyed
+
             }
 
             else
