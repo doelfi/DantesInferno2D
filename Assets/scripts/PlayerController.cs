@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         levelLifes = 0;
         levelCoins = 0;
+        SceneManager.LoadScene(sceneID + 1);
     }
    
 
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             // prevents a jump if the player only touches the platform from the side
-            if(transform.position.y >= (other.transform.position.y + 1))
+            if(transform.position.y >= (other.transform.position.y + 0.9))
                 isJumping = false; 
         }
 
