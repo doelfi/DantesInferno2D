@@ -40,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (hit.collider != null)
         {
-            if ((hit.transform.tag == "Wall") || (hit.transform.tag == "Spike"))
+            if ((hit.transform.tag == "Wall") || (hit.transform.tag == "Spike") || (hit.transform.tag == "Enemy"))
             {
                 bIsGoingRight = !bIsGoingRight;
                 _mSpriteRenderer.flipX = bIsGoingRight;

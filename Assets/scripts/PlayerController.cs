@@ -12,9 +12,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2D;
 
     private bool isJumping = true;
+    public bool bIsGoingRight = true;
     private float moveHorizontal;
     private float moveVertical;
 
+    // Animation
+    private Animator animator;
+    private SpriteRenderer _mSpriteRenderer;
     // old movement variables
     /*
     [SerializeField]
@@ -46,6 +50,11 @@ public class PlayerController : MonoBehaviour
         UIscript = UIcanvas.GetComponent<UIcontroller>();
         UIscript.updateUI();
         sceneID = SceneManager.GetActiveScene().buildIndex;
+
+        // Animation
+        animator = gameObject.GetComponent<Animator>();
+        _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        //_mSpriteRenderer.flipX = bIsGoingRight;
     }
 
     // Update is called once per frame
@@ -57,6 +66,26 @@ public class PlayerController : MonoBehaviour
         // MOVEMENT
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
+
+        // Animation
+        if (horizontalInput != 0)
+        {
+            animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+        }
+        if (Input.GetKeyDown("a"))
+        {
+            bIsGoingRight = true;
+            _mSpriteRenderer.flipX = bIsGoingRight;
+        }
+        if (Input.GetKeyDown("d"))
+        {
+            bIsGoingRight = false;
+            _mSpriteRenderer.flipX = bIsGoingRight;
+        }
 
         // JUMPING
         //float verticalInput = Input.GetAxis("Vertical"); // this gives an absurd boost, I don't know why
