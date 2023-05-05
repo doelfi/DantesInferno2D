@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         levelLifes = 0;
         levelCoins = 0;
+        GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad; // very basic speed run mechanic
         SceneManager.LoadScene(sceneID + 1);
     }
    
