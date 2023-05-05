@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
         if (GameStats.lifes < 1)
         {
             UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
+            SceneManager.LoadScene(0);
         }
 
         UnityEngine.Debug.Log("took damage");
