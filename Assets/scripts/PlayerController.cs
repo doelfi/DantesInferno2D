@@ -81,11 +81,14 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
             SceneManager.LoadScene(0);
         }
+        else
+        {
+            UnityEngine.Debug.Log("took damage");
 
-        UnityEngine.Debug.Log("took damage");
-
-        // reloads level, so coins and enemies will reappear
-        SceneManager.LoadScene(sceneID);
+            // reloads level, so coins and enemies will reappear
+            SceneManager.LoadScene(sceneID);
+        }
+        
 
     }
 
