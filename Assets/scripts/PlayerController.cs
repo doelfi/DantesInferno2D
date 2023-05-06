@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2D;
 
     private bool isJumping = true;
-    public bool bIsGoingRight = true;
+    private bool bIsGoingRight = true;
     private float moveHorizontal;
     private float moveVertical;
 
