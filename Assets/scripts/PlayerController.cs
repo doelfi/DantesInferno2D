@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // Animation
     private Animator animator;
     private SpriteRenderer _mSpriteRenderer;
+
     // old movement variables
     /*
     [SerializeField]
@@ -54,7 +55,6 @@ public class PlayerController : MonoBehaviour
         // Animation
         animator = gameObject.GetComponent<Animator>();
         _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        //_mSpriteRenderer.flipX = bIsGoingRight;
     }
 
     // Update is called once per frame
@@ -92,7 +92,9 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKeyDown("space") || Input.GetKeyDown("up")) && !isJumping)
         {
             rb2D.velocity += new Vector2(0f, _jumpingSpeed);
-        }
+            // Animation
+            animator.SetBool("IsJumpingAni", true);
+        }        
     }
 
     
@@ -153,6 +155,8 @@ public class PlayerController : MonoBehaviour
             // prevents a jump if the player only touches the platform from the side
             if(transform.position.y >= (other.transform.position.y + 0.9))
                 isJumping = false; 
+            // Animation
+            animator.SetBool("IsJumpingAni", false);
         }
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Spike"))
