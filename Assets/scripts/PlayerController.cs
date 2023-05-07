@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
     // movement settings
     private Rigidbody2D rb2D;
 
@@ -19,14 +18,6 @@ public class PlayerController : MonoBehaviour
     // Animation
     private Animator animator;
     private SpriteRenderer _mSpriteRenderer;
-
-    // old movement variables
-    /*
-    [SerializeField]
-    private float jumpForce = 30f;
-    [SerializeField]
-    private float moveSpeed = 1.5f;
-    */
 
     // new movement variables
     [SerializeField]
@@ -60,9 +51,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //moveHorizontal = Input.GetAxisRaw("Horizontal");
-        //moveVertical = Input.GetAxisRaw("Vertical");
-
         // MOVEMENT
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
@@ -201,20 +189,4 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
         }
     }
-
-    /*
-    void FixedUpdate()
-    {
-        if(moveHorizontal > 0.1f || moveHorizontal < -0.1f)
-        {
-            rb2D.AddForce(new Vector2(moveHorizontal * moveSpeed, 0f), ForceMode2D.Impulse);
-        }
-
-        if (moveVertical > 0.1f && !isJumping)
-        {
-            rb2D.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
-            isJumping = true;
-        }
-    }
-    */
 }
