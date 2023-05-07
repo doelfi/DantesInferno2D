@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             // prevents a jump if the player only touches the platform from the side
+            UnityEngine.Debug.Log(transform.position.y >= (other.transform.position.y + 0.9));
             if (transform.position.y >= (other.transform.position.y + 0.9))
                 isJumping = false; 
             // Animation
