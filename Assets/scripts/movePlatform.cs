@@ -58,4 +58,20 @@ public class movePlatform : MonoBehaviour
 
 
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player")){
+            other.gameObject.transform.SetParent(transform, true);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.transform.SetParent(null);
+        }
+    }
+
 }

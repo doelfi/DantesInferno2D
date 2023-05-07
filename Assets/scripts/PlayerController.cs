@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             // prevents a jump if the player only touches the platform from the side
-            if(transform.position.y >= (other.transform.position.y + 0.9))
+            if (transform.position.y >= (other.transform.position.y + 0.9))
                 isJumping = false; 
             // Animation
             animator.SetBool("IsJumpingAni", false);
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
-            if (transform.position.y >= (other.transform.position.y + 1))
+            if (transform.position.y >= (other.transform.position.y + 0.9))
                 isJumping = false;
         }
     }
