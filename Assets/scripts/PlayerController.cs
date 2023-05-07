@@ -107,8 +107,6 @@ public class PlayerController : MonoBehaviour
             // reloads level, so coins and enemies will reappear
             SceneManager.LoadScene(sceneID);
         }
-        
-
     }
 
     public void collectCoin()
@@ -130,7 +128,17 @@ public class PlayerController : MonoBehaviour
     {
         levelLifes = 0;
         levelCoins = 0;
-        GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad); // very basic speed run mechanic
+
+        // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
+        if (GameStats.runTimes[sceneID - 1] != 0)
+        {
+            GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad);
+        }
+        else
+        {
+            GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
+        }
+        
         SceneManager.LoadScene(sceneID + 1);
     }
    
