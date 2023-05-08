@@ -174,6 +174,12 @@ public class PlayerController : MonoBehaviour
                
         }
 
+        if (other.gameObject.CompareTag("BottomLine"))
+        {
+            UnityEngine.Debug.Log("Dante fell down.");
+            takeDamage();
+        }
+
     }
 
     
