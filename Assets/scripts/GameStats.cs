@@ -10,5 +10,5 @@ public static class GameStats
 
 
     // speed run times
-    public static double[] runTimes = new double[9];
+    public static double[] runTimes = new double[6];
 }

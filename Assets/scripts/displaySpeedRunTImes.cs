@@ -11,7 +11,7 @@ public class displaySpeedRunTImes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string concatedTimes = "Your Times:\n\n";
+        string concatedTimes = "Your Times \n";
 
         int i = 0;
         foreach(double time in GameStats.runTimes)
