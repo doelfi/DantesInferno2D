@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    private void takeDamage()
+    public void takeDamage()
     {
         GameStats.lifes -= 1;
         GameStats.coins = GameStats.coins - levelCoins;
