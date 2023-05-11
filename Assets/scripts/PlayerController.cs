@@ -82,7 +82,9 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity += new Vector2(0f, _jumpingSpeed);
             // Animation
             animator.SetBool("IsJumpingAni", true);
-        }        
+        }  
+
+        firstTutorial();      
     }
 
     
@@ -106,6 +108,16 @@ public class PlayerController : MonoBehaviour
 
             // reloads level, so coins and enemies will reappear
             SceneManager.LoadScene(sceneID);
+        }
+    }
+
+    public void firstTutorial()
+    {
+        UnityEngine.Debug.Log(sceneID);
+        UnityEngine.Debug.Log("sceneID");
+        if (sceneID == 1)
+        {
+            UIscript.Tutorial();
         }
     }
 
