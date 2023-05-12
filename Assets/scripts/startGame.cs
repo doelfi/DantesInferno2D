@@ -19,7 +19,7 @@ public class startGame : MonoBehaviour
 
     public void OnSpeedPress()
     {
-        SceneManager.LoadScene(5); 
+        SceneManager.LoadScene(7); 
     }
 
     private void ReadRunTimes()
@@ -38,9 +38,10 @@ public class startGame : MonoBehaviour
         int n = 0;
         foreach (string line in content)
         {
-            // german system will use a ',' as a separator for floats when converting
-            // to string while english systems use a '.'. InvariantCulture accepts both
-            double time = double.Parse(line, CultureInfo.InvariantCulture);
+            // german systems will use a ',' as a separator for floats when converting to a string
+            // we need to change it back in order to work with it correctly
+            string correctLine = line.Replace(",", ".");
+            double time = double.Parse(correctLine);
             GameStats.runTimes[n] = time;
             n++;
         }
