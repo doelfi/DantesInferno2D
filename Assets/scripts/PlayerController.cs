@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
         }
+        GameStats.SaveRunTimes();
         
         SceneManager.LoadScene(sceneID + 1);
     }
