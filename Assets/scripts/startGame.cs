@@ -41,7 +41,7 @@ public class startGame : MonoBehaviour
             // german systems will use a ',' as a separator for floats when converting to a string
             // we need to change it back in order to work with it correctly
             string correctLine = line.Replace(",", ".");
-            double time = double.Parse(correctLine);
+            double time = double.Parse(correctLine, CultureInfo.InvariantCulture);
             GameStats.runTimes[n] = time;
             n++;
         }

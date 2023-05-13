@@ -17,8 +17,7 @@ public class displaySpeedRunTImes : MonoBehaviour
         foreach(double time in GameStats.runTimes)
         {
             i++;
-            double roundedTime = System.Math.Round(time, 2);
-            UnityEngine.Debug.Log(roundedTime);
+            double roundedTime = System.Math.Round(time, 3);
             concatedTimes = concatedTimes + "Level " + i.ToString() + ": " + roundedTime.ToString() + "\n";
         }
 
