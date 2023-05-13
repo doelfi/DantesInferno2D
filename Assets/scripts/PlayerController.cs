@@ -113,8 +113,8 @@ public class PlayerController : MonoBehaviour
 
     public void firstTutorial()
     {
-        UnityEngine.Debug.Log(sceneID);
-        UnityEngine.Debug.Log("sceneID");
+        //UnityEngine.Debug.Log(sceneID);
+        //UnityEngine.Debug.Log("sceneID");
         if (sceneID == 1)
         {
             UIscript.Tutorial();
