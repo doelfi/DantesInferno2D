@@ -150,7 +150,15 @@ public class PlayerController : MonoBehaviour
         {
             GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
         }
-        GameStats.SaveRunTimes();
+
+        try
+        {
+            GameStats.SaveRunTimes();
+        }
+        catch
+        {
+            UnityEngine.Debug.Log("Path Empty, run times not saved!");
+        }
         
         SceneManager.LoadScene(sceneID + 1);
     }
