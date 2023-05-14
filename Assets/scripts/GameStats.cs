@@ -21,7 +21,7 @@ public static class GameStats
 
         foreach (double entry in runTimes)
         {
-            File.AppendAllText(runTimePath, entry.ToString());
+            File.AppendAllText(runTimePath, entry.ToString() + "\n");
         }
     }
 }
