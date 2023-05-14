@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private GameObject UIcanvas;
     private UIcontroller UIscript;
     private int levelCoins = 0;
-    private int levelLifes = 0; // in case coins get turned into a life
 
     private int sceneID;
    
@@ -93,7 +92,6 @@ public class PlayerController : MonoBehaviour
         GameStats.lifes -= 1;
         GameStats.coins = GameStats.coins - levelCoins;
         levelCoins = 0;
-        GameStats.lifes = GameStats.lifes - levelLifes;
         UIscript.updateUI();
 
 
@@ -128,8 +126,8 @@ public class PlayerController : MonoBehaviour
         if (GameStats.coins >= 3)
         {
             GameStats.lifes += 1;
-            levelLifes += 1;
             GameStats.coins = 0;
+            levelCoins = 0;
         }
         UIscript.updateUI();
     }
@@ -138,7 +136,6 @@ public class PlayerController : MonoBehaviour
     // has to be called by the finish line trigger event
     public void onLevelSwitch()
     {
-        levelLifes = 0;
         levelCoins = 0;
 
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
