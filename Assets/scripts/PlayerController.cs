@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    public void takeDamage()
+    public void TakeDamage()
     {
         GameStats.lifes -= 1;
         GameStats.coins = GameStats.coins - levelCoins;
@@ -108,7 +108,8 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(sceneID);
         }
     }
-
+    
+    // this could be part of the first scene itself instead of being in this script
     public void firstTutorial()
     {
         //UnityEngine.Debug.Log(sceneID);
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void collectCoin()
+    public void CollectCoin()
     {
         GameStats.coins += 1;
         levelCoins += 1;
@@ -134,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
 
     // has to be called by the finish line trigger event
-    public void onLevelSwitch()
+    public void OnLevelSwitch()
     {
         levelCoins = 0;
 
@@ -186,7 +187,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 UnityEngine.Debug.Log("Enemy touched.");
-                takeDamage();
+                TakeDamage();
             }
                
         }
@@ -194,7 +195,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("BottomLine"))
         {
             UnityEngine.Debug.Log("Dante fell down.");
-            takeDamage();
+            TakeDamage();
         }
 
     }

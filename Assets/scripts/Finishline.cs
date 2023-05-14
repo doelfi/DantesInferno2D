@@ -14,18 +14,12 @@ public class Finishline : MonoBehaviour
         playerScript = player.GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             UnityEngine.Debug.Log("finish line reached");
-            playerScript.onLevelSwitch();
+            playerScript.OnLevelSwitch();
         }
     }
 }

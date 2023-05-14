@@ -12,7 +12,7 @@ public class RemoveFallingSpikes : MonoBehaviour
         }
         else if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().takeDamage();
+            other.gameObject.GetComponent<PlayerController>().TakeDamage();
         }
     }
 }
