@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
     {
         GameStats.coins += 1;
         levelCoins += 1;
-        if (GameStats.coins >= 9)
+        if (GameStats.coins >= 3)
         {
             GameStats.lifes += 1;
             levelLifes += 1;

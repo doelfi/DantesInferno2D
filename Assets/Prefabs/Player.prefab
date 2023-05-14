@@ -146,3 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4fe7fcd41b68084e9b922d6913969ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 7
+  _jumpingSpeed: 25
+  UIcanvas: {fileID: 0}

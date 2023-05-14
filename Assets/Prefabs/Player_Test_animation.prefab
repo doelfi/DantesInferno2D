@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1083592090862999508, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
+      propertyPath: _speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1083592090862999508, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
       propertyPath: UIcanvas
       value: 
       objectReference: {fileID: 0}
@@ -57,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1083592090862999513, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player_Test_animation
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
