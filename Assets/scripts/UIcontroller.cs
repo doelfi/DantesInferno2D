@@ -22,22 +22,4 @@ public class UIcontroller : MonoBehaviour
     {
         panel.text = "Lifes: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
     }
-
-    public void Tutorial()
-    {
-        panel.text = "Start moving forward with the right arrow or d"; 
-        // if (Input.GetKeyDown("d") || Input.GetKeyDown("right")) 
-        if (Input.GetKeyDown("d")) 
-        {   
-            panel.text = "Nice. Get used to jumping. Press space.";
-            if (Input.GetKeyDown("space"))
-            {
-                panel.text = "Well done. Now be careful with spikes. Jump over it or loose a life.";
-                if (transform.position.x > 10) 
-                {
-                    panel.text = "Good job. Finish the level by touching the plastic flag.";
-                }
-            }
-        }
-    }
 }
