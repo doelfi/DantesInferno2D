@@ -9,10 +9,11 @@ public class TutorialUI : MonoBehaviour
 
     void Start()
     {
-        Tutorial("Start moving with the arrows and jump with space"); 
+        string start_text = "Start moving with the arrows and jump with space";
+        Tutorial(ref start_text); 
     }
 
-    public void Tutorial(string message)
+    public void Tutorial(ref string message)
     {
         // if (Input.GetKeyDown("d") || Input.GetKeyDown("right")) 
         panel.text = message;

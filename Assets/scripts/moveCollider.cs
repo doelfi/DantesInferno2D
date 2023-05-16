@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class moveCollider : MonoBehaviour
+public class MoveCollider : MonoBehaviour
 {
     [SerializeField]
     public GameObject canvas;
@@ -21,7 +21,8 @@ public class moveCollider : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Tutorial is running after if");
-            messageScript.Tutorial("Well done. Now be careful with spikes. Jump over it or loose a life.");
+            string moveCollider_text = "Well done. Now be careful with spikes. Jump over it or loose a life.";
+            messageScript.Tutorial(ref moveCollider_text);
         }
     }
 }
