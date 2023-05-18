@@ -15,15 +15,6 @@ public class TutorialUI : MonoBehaviour
 
     public void Tutorial(ref string message)
     {
-        // if (Input.GetKeyDown("d") || Input.GetKeyDown("right")) 
         panel.text = message;
     }
-            /* 
-            panel.text = "Nice. Get used to jumping. Press space.";
-            if (Input.GetKeyDown("space"))
-            {
-                panel.text = "Well done. Now be careful with spikes. Jump over it or loose a life.";
-                if (transform.position.x > 10) 
-                    // panel.text = "Good job. Finish the level by touching the plastic flag.";
-        */
 }

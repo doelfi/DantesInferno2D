@@ -81,9 +81,23 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity += new Vector2(0f, _jumpingSpeed);
             // Animation
             animator.SetBool("IsJumpingAni", true);
-        }       
+        }
+
+        if (UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
+        // Bug: key gedrückt halten wird nicht erkannt...
+        {
+            SceneManager.LoadScene(0);
+        }      
     }
 
+    
+    public void gameOver()
+    {
+        UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
+        // Destroy(this.gameObject); //Bug: Problem with Camera
+        UIscript.gameOverUI();
+
+    }
     
     public void TakeDamage()
     {
@@ -95,8 +109,7 @@ public class PlayerController : MonoBehaviour
 
         if (GameStats.lifes < 1)
         {
-            UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
-            SceneManager.LoadScene(0);
+            gameOver();
         }
         else
         {

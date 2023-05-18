@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveCollider : MonoBehaviour
+public class TutorialCoinCollider : MonoBehaviour
 {
     [SerializeField]
     public GameObject canvas;
@@ -18,8 +18,9 @@ public class MoveCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            string moveCollider_text = "Well done. Now be careful with spikes. Jump over it or loose a life.";
-            messageScript.Tutorial(ref moveCollider_text);
+            string coinCollider_text = "Good job. Finish the level by touching the plastic flag.";
+            //"Nice. Now collect the coin. Coins may be useful sometime.";
+            messageScript.Tutorial(ref coinCollider_text);
         }
     }
 }
