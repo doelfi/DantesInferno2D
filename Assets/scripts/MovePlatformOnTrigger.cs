@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class MovePlatformOnTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     // Set your parameters in the Inspector.
     public Vector3 targetOffset = Vector3.right * 10f;
     public float speed = 1f;

@@ -9,7 +9,7 @@ public class TutorialUI : MonoBehaviour
 
     void Start()
     {
-        string start_text = "Start moving with the arrows and jump with space";
+        string start_text = "Move with the arrows and space";
         Tutorial(ref start_text); 
     }
 

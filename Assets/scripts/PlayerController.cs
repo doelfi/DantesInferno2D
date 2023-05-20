@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
             // Animation
             animator.SetBool("IsJumpingAni", true);
         }
-
+        
         if (UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
         // Bug: key gedrückt halten wird nicht erkannt...
         {

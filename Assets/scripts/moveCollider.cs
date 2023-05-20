@@ -18,7 +18,7 @@ public class MoveCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            string moveCollider_text = "Well done. Now be careful with spikes. Jump over it or loose a life.";
+            string moveCollider_text = "Jump over spikes.";//"Well done. Now be careful with spikes. Jump over it or loose a life.";
             messageScript.Tutorial(ref moveCollider_text);
         }
     }

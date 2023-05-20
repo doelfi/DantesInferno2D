@@ -18,8 +18,7 @@ public class TutorialCoinCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            string coinCollider_text = "Good job. Finish the level by touching the plastic flag.";
-            //"Nice. Now collect the coin. Coins may be useful sometime.";
+            string coinCollider_text = "Finish at the plastic flag.";//"Good job. Finish the level by touching the plastic flag.";
             messageScript.Tutorial(ref coinCollider_text);
         }
     }

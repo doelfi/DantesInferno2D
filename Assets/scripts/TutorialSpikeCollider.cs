@@ -18,7 +18,7 @@ public class TutorialSpikeCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            string spikeCollider_text = "Nice. Now collect the coin. Coins may be useful sometime.";
+            string spikeCollider_text = "Collect the coin.";//"Nice. Now collect the coin. Coins may be useful sometime.";
             messageScript.Tutorial(ref spikeCollider_text);
         }
     }
