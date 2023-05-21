@@ -94,7 +94,9 @@ public class PlayerController : MonoBehaviour
     public void gameOver()
     {
         UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
-        // Destroy(this.gameObject); //Bug: Problem with Camera
+        //bool visible = this.gameObject.GetComponent<Renderer>(); 
+        //visible = false;// Destroy(this.gameObject); //Bug: Problem with Camera
+        _mSpriteRenderer.enabled = false;
         UIscript.gameOverUI();
 
     }
