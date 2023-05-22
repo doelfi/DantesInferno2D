@@ -59,6 +59,12 @@ public class PlayerController : MonoBehaviour
         // MOVEMENT
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
+        // sound
+        if (horizontalInput != 0)
+        {   
+            // I need a way of only playing this when the effect before stopped, otherwise it is a machine gun
+            //soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
+        }
 
         // Animation
         if (horizontalInput != 0)
@@ -198,6 +204,8 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 rb2D.velocity += new Vector2(0f, _jumpingSpeed * 0.5f); // give a little boost upwards when enemy is destroyed
+                // sound
+                soundManagerScript.PlaySound(SoundManager.SoundOptions.EnemyKilled);
             }
 
             else
