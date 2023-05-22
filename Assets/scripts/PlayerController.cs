@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
     private UIcontroller UIscript;
     private int levelCoins = 0;
 
+    // sounds
+    [SerializeField] private GameObject soundManager;
+    private SoundManager soundManagerScript;
+    
+    // misc
     private int sceneID;
    
 
@@ -43,6 +48,9 @@ public class PlayerController : MonoBehaviour
         // Animation
         animator = gameObject.GetComponent<Animator>();
         _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        
+        // Sounds
+        soundManagerScript = soundManager.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -79,6 +87,8 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity += new Vector2(0f, _jumpingSpeed);
             // Animation
             animator.SetBool("IsJumpingAni", true);
+            // Sound
+            soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerJump);
         }
         
         if (UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
@@ -102,10 +112,13 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         GameStats.lifes -= 1;
+        // reset coins collected in that level
         GameStats.coins = GameStats.coins - levelCoins;
         levelCoins = 0;
         UIscript.updateUI();
-
+        
+        // Sound
+        soundManagerScript.PlaySound(SoundManager.SoundOptions.DamageTaken);
 
         if (GameStats.lifes < 1)
         {
@@ -114,7 +127,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             UnityEngine.Debug.Log("took damage");
-
             // reloads level, so coins and enemies will reappear
             SceneManager.LoadScene(sceneID);
         }
@@ -124,11 +136,14 @@ public class PlayerController : MonoBehaviour
     {
         GameStats.coins += 1;
         levelCoins += 1;
+        soundManagerScript.PlaySound(SoundManager.SoundOptions.CoinCollected);
+        
         if (GameStats.coins >= 3)
         {
             GameStats.lifes += 1;
             GameStats.coins = 0;
             levelCoins = 0;
+            soundManagerScript.PlaySound(SoundManager.SoundOptions.LifeGained);
         }
         UIscript.updateUI();
     }
@@ -138,7 +153,7 @@ public class PlayerController : MonoBehaviour
     public void OnLevelSwitch()
     {
         levelCoins = 0;
-
+        soundManagerScript.PlaySound(SoundManager.SoundOptions.FinishReached);
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
         if (GameStats.runTimes[sceneID - 1] != 0)
         {
@@ -181,7 +196,6 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(other.gameObject);
                 rb2D.velocity += new Vector2(0f, _jumpingSpeed * 0.5f); // give a little boost upwards when enemy is destroyed
-
             }
 
             else
