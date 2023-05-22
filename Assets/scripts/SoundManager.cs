@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
     
     // takes one of the Options listed above and plays it once
