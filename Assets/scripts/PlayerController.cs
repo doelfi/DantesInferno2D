@@ -7,19 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    // movement settings
-    private Rigidbody2D rb2D;
-
-    private bool isJumping = true;
-    private bool bIsGoingRight = true;
-    private float moveHorizontal;
-    private float moveVertical;
-
     // Animation
     private Animator animator;
     private SpriteRenderer _mSpriteRenderer;
 
-    // new movement variables
+    // movement variables
+    private bool isJumping = true;
+    private bool bIsGoingRight = true;
+    private float moveHorizontal;
+    private float moveVertical;
+    
+    private Rigidbody2D rb2D;
     [SerializeField]
     private float _speed = 8f;
     [SerializeField]
