@@ -49,4 +49,9 @@ public class SoundManager : MonoBehaviour
         }
         UnityEngine.Debug.LogError("Clip " + name + " not found");
     }
+
+    public bool IsPlaying()
+    {
+        return audioSource.isPlaying;
+    }
 }

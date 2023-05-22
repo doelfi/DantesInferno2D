@@ -62,8 +62,12 @@ public class PlayerController : MonoBehaviour
         // sound
         if (horizontalInput != 0)
         {   
-            // I need a way of only playing this when the effect before stopped, otherwise it is a machine gun
-            //soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
+            // Only plays sound when the previous clip is done
+            // FIXME: plays to sparsly
+            if (!soundManagerScript.IsPlaying())
+            {
+                soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);                
+            }
         }
 
         // Animation
@@ -124,6 +128,7 @@ public class PlayerController : MonoBehaviour
         UIscript.updateUI();
         
         // Sound
+        // FIXME: need a way to pause game until sound is played
         soundManagerScript.PlaySound(SoundManager.SoundOptions.DamageTaken);
 
         if (GameStats.lifes < 1)
