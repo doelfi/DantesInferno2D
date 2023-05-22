@@ -187,6 +187,8 @@ public class PlayerController : MonoBehaviour
                 isJumping = false; 
             // Animation
             animator.SetBool("IsJumpingAni", false);
+            // Sound
+            soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerLand);
         }
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Spike"))
