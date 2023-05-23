@@ -119,20 +119,23 @@ public class PlayerController : MonoBehaviour
 
     }
     
+    // essentially we could convert this into the coroutine instead of just calling it here
+    // but then we will have to change all instances in the code
     public void TakeDamage()
     {
+        /*
         GameStats.lifes -= 1;
         // reset coins collected in that level
         GameStats.coins = GameStats.coins - levelCoins;
         levelCoins = 0;
         UIscript.updateUI();
-        
+        */
         // Sound
-        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
+        //float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
         
         // wait for sound effect to finish
         // feels a little unnatural 
-        StartCoroutine(TakeDamageAfterClip(cliplength));
+        StartCoroutine(TakeDamageAfterClip());
         /*
         if (GameStats.lifes < 1)
         {
@@ -148,10 +151,16 @@ public class PlayerController : MonoBehaviour
     }
     
     // waits for the clip to end and calls the usual damage routines afterwards 
-    IEnumerator TakeDamageAfterClip(float cliplength)
+    IEnumerator TakeDamageAfterClip()
     {
+        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
         StartCoroutine(PlayerDeathAnimation());
         yield return new WaitForSeconds(cliplength);
+        GameStats.lifes -= 1;
+        // reset coins collected in that level
+        GameStats.coins = GameStats.coins - levelCoins;
+        levelCoins = 0;
+        UIscript.updateUI();
         if (GameStats.lifes < 1)
         {
             gameOver();
@@ -210,7 +219,37 @@ public class PlayerController : MonoBehaviour
     public void OnLevelSwitch()
     {
         levelCoins = 0;
-        soundManagerScript.PlaySound(SoundManager.SoundOptions.FinishReached);
+        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.FinishReached);
+        StartCoroutine(LevelSwitch(cliplength));
+        /*
+        // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
+        if (GameStats.runTimes[sceneID - 1] != 0)
+        {
+            GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad);
+        }
+        else
+        {
+            GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
+        }
+
+        try
+        {
+            GameStats.SaveRunTimes();
+        }
+        catch
+        {
+            UnityEngine.Debug.Log("Path Empty, run times not saved!");
+        }
+        
+        SceneManager.LoadScene(sceneID + 1);
+        */
+    }
+
+    IEnumerator LevelSwitch(float cliplength)
+    {
+        // probably need a different animation for that but for testing this is okay
+        StartCoroutine(PlayerDeathAnimation());
+        yield return new WaitForSeconds(cliplength);
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
         if (GameStats.runTimes[sceneID - 1] != 0)
         {
