@@ -128,9 +128,12 @@ public class PlayerController : MonoBehaviour
         UIscript.updateUI();
         
         // Sound
-        // FIXME: need a way to pause game until sound is played
-        soundManagerScript.PlaySound(SoundManager.SoundOptions.DamageTaken);
-
+        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
+        
+        // wait for sound effect to finish
+        // feels a little unnatural 
+        StartCoroutine(TakeDamageAfterClip(cliplength));
+        /*
         if (GameStats.lifes < 1)
         {
             gameOver();
@@ -140,6 +143,49 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("took damage");
             // reloads level, so coins and enemies will reappear
             SceneManager.LoadScene(sceneID);
+        }
+        */
+    }
+    
+    // waits for the clip to end and calls the usual damage routines afterwards 
+    IEnumerator TakeDamageAfterClip(float cliplength)
+    {
+        StartCoroutine(PlayerDeathAnimation());
+        yield return new WaitForSeconds(cliplength);
+        if (GameStats.lifes < 1)
+        {
+            gameOver();
+        }
+        else
+        {
+            UnityEngine.Debug.Log("took damage");
+            // reloads level, so coins and enemies will reappear
+            SceneManager.LoadScene(sceneID);
+        }
+    }
+    
+    // adds a flashing animation so that the user knows something happened while the sound has time to play
+    IEnumerator PlayerDeathAnimation()
+    {
+        StartCoroutine(PlayerFixPosition());
+        while (true)
+        {
+            _mSpriteRenderer.material.SetColor("_Color", new Color(1f,1f,1f,0.2f));
+            yield return new WaitForSeconds(0.1f);
+            _mSpriteRenderer.material.SetColor("_Color", new Color(1f,1f,1f,0.8f));
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+    
+    // fix player in position while Death Animation is played
+    // I know it is not the nicest way using all these coroutines but it is quick and easy
+    IEnumerator PlayerFixPosition()
+    {
+        Vector3 position = transform.position;
+        while (true)
+        {
+            transform.position = position;
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -186,7 +232,7 @@ public class PlayerController : MonoBehaviour
         
         SceneManager.LoadScene(sceneID + 1);
     }
-   
+
 
     // Checks for Collision with objects that are also rigidbodies (not triggers)
     void OnCollisionEnter2D(Collision2D other)

@@ -49,6 +49,22 @@ public class SoundManager : MonoBehaviour
         }
         UnityEngine.Debug.LogError("Clip " + name + " not found");
     }
+    
+    // takes one of the Options listed above and plays it once
+    public float PlaySoundFloat(SoundOptions name)
+    {
+        foreach (AudioClips entry in SoundAssets)
+        {
+            if (entry.name == name)
+            {
+                audioSource.clip = entry.clip;
+                audioSource.Play();
+                return audioSource.clip.length;
+            }
+        }
+        UnityEngine.Debug.LogError("Clip " + name + " not found");
+        return 0;
+    }
 
     public bool IsPlaying()
     {
