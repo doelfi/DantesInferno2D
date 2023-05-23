@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     // sounds
     [SerializeField] private GameObject soundManager;
     private SoundManager soundManagerScript;
+    private bool playingWalking = false;
     
     // misc
     private int sceneID;
@@ -60,14 +61,10 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
         // sound
-        if (horizontalInput != 0)
-        {   
-            // Only plays sound when the previous clip is done
-            // FIXME: plays to sparsly
-            if (!soundManagerScript.IsPlaying())
-            {
-                soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);                
-            }
+        if (!playingWalking && !isJumping && horizontalInput != 0)
+        {
+            playingWalking = true;
+            StartCoroutine(WalkingSound());
         }
 
         // Animation
@@ -106,6 +103,13 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }      
+    }
+
+    IEnumerator WalkingSound()
+    {
+        soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
+        yield return new WaitForSeconds(0.5f);
+        playingWalking = false;
     }
 
     

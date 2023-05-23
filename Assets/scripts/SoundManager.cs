@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private AudioSource audioSource;
+    private AudioSource[] audioSources;
     
     // all possible Sound Effects
     public enum SoundOptions
@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
-        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSources = gameObject.GetComponents<AudioSource>();
     }
     
     // takes one of the Options listed above and plays it once
@@ -42,9 +42,15 @@ public class SoundManager : MonoBehaviour
         {
             if (entry.name == name)
             {
-                audioSource.clip = entry.clip;
-                audioSource.Play();
-                return;
+                foreach (AudioSource audioSource in audioSources)
+                {
+                    if (!audioSource.isPlaying)
+                    { 
+                        audioSource.clip = entry.clip;
+                        audioSource.PlayOneShot(entry.clip);
+                        return;
+                    }
+                }
             }
         }
         UnityEngine.Debug.LogError("Clip " + name + " not found");
@@ -57,17 +63,24 @@ public class SoundManager : MonoBehaviour
         {
             if (entry.name == name)
             {
-                audioSource.clip = entry.clip;
-                audioSource.Play();
-                return audioSource.clip.length;
+                foreach (AudioSource audioSource in audioSources)
+                {
+                    if (!audioSource.isPlaying)
+                    { 
+                        audioSource.clip = entry.clip;
+                        audioSource.PlayOneShot(entry.clip);
+                        return audioSource.clip.length;  
+                    }
+                }
             }
         }
         UnityEngine.Debug.LogError("Clip " + name + " not found");
         return 0;
     }
 
+    /*
     public bool IsPlaying()
     {
         return audioSource.isPlaying;
-    }
+    }*/
 }
