@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    
+    // there are multiple audiosources now
+    // the function just takes the first that is not currently playing anything
+    // this allows us to play multiple sounds at once
     private AudioSource[] audioSources;
     
     // all possible Sound Effects
@@ -57,6 +61,8 @@ public class SoundManager : MonoBehaviour
     }
     
     // takes one of the Options listed above and plays it once
+    // returns the length of the played audio clip
+    // this is useful for the coroutines who should wait for the duration of the clip
     public float PlaySoundFloat(SoundOptions name)
     {
         foreach (AudioClips entry in SoundAssets)
@@ -77,10 +83,4 @@ public class SoundManager : MonoBehaviour
         UnityEngine.Debug.LogError("Clip " + name + " not found");
         return 0;
     }
-
-    /*
-    public bool IsPlaying()
-    {
-        return audioSource.isPlaying;
-    }*/
 }

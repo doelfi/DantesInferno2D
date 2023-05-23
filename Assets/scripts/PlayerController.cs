@@ -60,7 +60,8 @@ public class PlayerController : MonoBehaviour
         // MOVEMENT
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
-        // sound
+        
+        // sound only plays on platforms and only in a certain time interval (see coroutine for the time variable)
         if (!playingWalking && !isJumping && horizontalInput != 0)
         {
             playingWalking = true;
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
         }      
     }
 
+    // plays walking sound and waits for a certain time so that walking doesn't sound like a machine gun
     IEnumerator WalkingSound()
     {
         soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
