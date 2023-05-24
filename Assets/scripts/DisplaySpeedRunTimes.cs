@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class displaySpeedRunTImes : MonoBehaviour
+public class DisplaySpeedRunTimes : MonoBehaviour
 {
 
     public TMP_Text panel;

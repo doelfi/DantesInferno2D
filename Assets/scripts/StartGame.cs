@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 
-public class startGame : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
     // path to the file that contains the speed run times
     private string _runTimesPath;

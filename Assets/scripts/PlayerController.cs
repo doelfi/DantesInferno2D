@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-//using System.Collections.Generic;
-//using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-//using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -101,8 +98,7 @@ public class PlayerController : MonoBehaviour
             _soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerJump);
         }
         
-        if (_UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
-        // Bug: key gedrückt halten wird nicht erkannt...
+        if (_UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown)
         {
             SceneManager.LoadScene(0);
         }      
@@ -120,42 +116,15 @@ public class PlayerController : MonoBehaviour
     public void gameOver()
     {
         UnityEngine.Debug.Log("Enjoy your time in hell."); // Placeholder
-        //bool visible = this.gameObject.GetComponent<Renderer>(); 
-        //visible = false;// Destroy(this.gameObject); //Bug: Problem with Camera
         _mSpriteRenderer.enabled = false;
         _UIscript.gameOverUI();
-
     }
     
     // essentially we could convert this into the coroutine instead of just calling it here
     // but then we will have to change all instances in the code
     public void TakeDamage()
     {
-        /*
-        GameStats.lifes -= 1;
-        // reset coins collected in that level
-        GameStats.coins = GameStats.coins - levelCoins;
-        levelCoins = 0;
-        UIscript.updateUI();
-        */
-        // Sound
-        //float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
-        
-        // wait for sound effect to finish
-        // feels a little unnatural 
         StartCoroutine(TakeDamageAfterClip());
-        /*
-        if (GameStats.lifes < 1)
-        {
-            gameOver();
-        }
-        else
-        {
-            UnityEngine.Debug.Log("took damage");
-            // reloads level, so coins and enemies will reappear
-            SceneManager.LoadScene(sceneID);
-        }
-        */
     }
     
     // waits for the clip to end and calls the usual damage routines afterwards 
@@ -205,7 +174,9 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
-
+    
+    // increases the coin counter in GameStats and for the current level
+    // when 3 coins are reached, one life is added and the coins reset
     public void CollectCoin()
     {
         GameStats.coins += 1;
@@ -227,37 +198,17 @@ public class PlayerController : MonoBehaviour
     public void OnLevelSwitch()
     {
         _levelCoins = 0;
-        float cliplength = _soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.FinishReached);
-        StartCoroutine(LevelSwitch(cliplength));
-        /*
-        // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
-        if (GameStats.runTimes[sceneID - 1] != 0)
-        {
-            GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad);
-        }
-        else
-        {
-            GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
-        }
-
-        try
-        {
-            GameStats.SaveRunTimes();
-        }
-        catch
-        {
-            UnityEngine.Debug.Log("Path Empty, run times not saved!");
-        }
-        
-        SceneManager.LoadScene(sceneID + 1);
-        */
+        float _cliplength = _soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.FinishReached);
+        StartCoroutine(LevelSwitch(_cliplength));
     }
-
-    IEnumerator LevelSwitch(float cliplength)
+    
+    // calculates new run times and saves the txt file
+    // switches to the next scene afterwards
+    IEnumerator LevelSwitch(float _cliplength)
     {
         // probably need a different animation for that but for testing this is okay
         StartCoroutine(PlayerDeathAnimation());
-        yield return new WaitForSeconds(cliplength);
+        yield return new WaitForSeconds(_cliplength);
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
         if (GameStats.runTimes[_sceneID - 1] != 0)
         {
@@ -324,8 +275,6 @@ public class PlayerController : MonoBehaviour
 
     
     // prevents a bug where a player running into another platform while staying on one can't jump anymore afterwards
-    // this happens because the new platform puts isJumping = true while the platform the player is standing only reacts on first collision
-    // has the drawback that the jumping force seems increased by a lot probably because collision exist isn't fast checked fast enough and the player gets an extra boost
     void OnCollisionStay2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
