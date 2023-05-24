@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
     // there are multiple audiosources now
     // the function just takes the first that is not currently playing anything
     // this allows us to play multiple sounds at once
-    private AudioSource[] audioSources;
+    private AudioSource[] _audioSources;
     
     // all possible Sound Effects
     public enum SoundOptions
@@ -36,7 +36,7 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
-        audioSources = gameObject.GetComponents<AudioSource>();
+        _audioSources = gameObject.GetComponents<AudioSource>();
     }
     
     // takes one of the Options listed above and plays it once
@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour
         {
             if (entry.name == name)
             {
-                foreach (AudioSource audioSource in audioSources)
+                foreach (AudioSource audioSource in _audioSources)
                 {
                     if (!audioSource.isPlaying)
                     { 
@@ -69,7 +69,7 @@ public class SoundManager : MonoBehaviour
         {
             if (entry.name == name)
             {
-                foreach (AudioSource audioSource in audioSources)
+                foreach (AudioSource audioSource in _audioSources)
                 {
                     if (!audioSource.isPlaying)
                     { 

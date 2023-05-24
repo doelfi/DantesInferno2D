@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveCollider : MonoBehaviour
+public class TutorialMoveCollider : MonoBehaviour
 {
     [SerializeField]
     public GameObject canvas;
-    private TutorialUI messageScript;
+    private TutorialUI _messageScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        messageScript = canvas.GetComponent<TutorialUI>();
+        _messageScript = canvas.GetComponent<TutorialUI>();
     }
 
     void OnTriggerEnter2D(Collider2D other) 
@@ -19,7 +19,7 @@ public class MoveCollider : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             string moveCollider_text = "Jump over spikes.";//"Well done. Now be careful with spikes. Jump over it or loose a life.";
-            messageScript.Tutorial(ref moveCollider_text);
+            _messageScript.Tutorial(ref moveCollider_text);
         }
     }
 }

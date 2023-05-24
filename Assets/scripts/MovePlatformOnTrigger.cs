@@ -7,7 +7,7 @@ public class MovePlatformOnTrigger : MonoBehaviour
     // Set your parameters in the Inspector.
     public Vector3 targetOffset = Vector3.right * 10f;
     public float speed = 1f;
-    private Vector3 startPosition;
+    private Vector3 _startPosition;
 
     public void StartMoving()
     {
@@ -19,7 +19,7 @@ public class MovePlatformOnTrigger : MonoBehaviour
     IEnumerator MovePlatform()
     {
 
-        startPosition = transform.position;
+        _startPosition = transform.position;
 
         // Then, pick our destination point offset from our current location.
         Vector3 targetPosition = transform.position + targetOffset;
@@ -45,13 +45,13 @@ public class MovePlatformOnTrigger : MonoBehaviour
             }
 
             // going back to the starting position
-            while (Vector3.SqrMagnitude(transform.position - startPosition) > 0.1)
+            while (Vector3.SqrMagnitude(transform.position - _startPosition) > 0.1)
             {
 
                 // Move one step toward the target at our given speed.
                 transform.position = Vector3.MoveTowards(
                       transform.position,
-                      startPosition,
+                      _startPosition,
                       speed * Time.deltaTime
                  );
 

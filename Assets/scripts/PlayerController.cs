@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
+//using System.Collections.Generic;
+//using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     // Animation
-    private Animator animator;
+    private Animator _animator;
     private SpriteRenderer _mSpriteRenderer;
 
     // movement variables
-    private bool isJumping = true;
-    private bool bIsGoingRight = true;
-    private float moveHorizontal;
-    private float moveVertical;
+    private bool _isJumping = true;
+    private bool _isGoingRight = true;
+    private float _moveHorizontal;
+    private float _moveVertical;
     
-    private Rigidbody2D rb2D;
+    private Rigidbody2D _rb2D;
     [SerializeField]
     private float _speed = 8f;
     [SerializeField]
@@ -25,33 +26,34 @@ public class PlayerController : MonoBehaviour
 
     // stats
     [SerializeField]
-    private GameObject UIcanvas;
-    private UIcontroller UIscript;
-    private int levelCoins = 0;
+    private GameObject _UIcanvas;
+    private UIcontroller _UIscript;
+    private int _levelCoins = 0;
 
     // sounds
-    [SerializeField] private GameObject soundManager;
-    private SoundManager soundManagerScript;
-    private bool playingWalking = false;
+    [SerializeField]
+    private GameObject _soundManager;
+    private SoundManager _soundManagerScript;
+    private bool _playingWalking = false;
     
     // misc
-    private int sceneID;
+    private int _sceneID;
    
 
     // Start is called before the first frame update
     void Start()
     {
-        rb2D = gameObject.GetComponent<Rigidbody2D>();
-        UIscript = UIcanvas.GetComponent<UIcontroller>();
-        UIscript.updateUI();
-        sceneID = SceneManager.GetActiveScene().buildIndex;
+        _rb2D = gameObject.GetComponent<Rigidbody2D>();
+        _UIscript = _UIcanvas.GetComponent<UIcontroller>();
+        _UIscript.updateUI();
+        _sceneID = SceneManager.GetActiveScene().buildIndex;
 
         // Animation
-        animator = gameObject.GetComponent<Animator>();
+        _animator = gameObject.GetComponent<Animator>();
         _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         
         // Sounds
-        soundManagerScript = soundManager.GetComponent<SoundManager>();
+        _soundManagerScript = _soundManager.GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -62,44 +64,44 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.right * Time.deltaTime * _speed * horizontalInput);
         
         // sound only plays on platforms and only in a certain time interval (see coroutine for the time variable)
-        if (!playingWalking && !isJumping && horizontalInput != 0)
+        if (!_playingWalking && !_isJumping && horizontalInput != 0)
         {
-            playingWalking = true;
+            _playingWalking = true;
             StartCoroutine(WalkingSound());
         }
 
         // Animation
         if (horizontalInput != 0)
         {
-            animator.SetBool("IsWalking", true);
+            _animator.SetBool("IsWalking", true);
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            _animator.SetBool("IsWalking", false);
         }
         if (Input.GetKeyDown("a"))
         {
-            bIsGoingRight = true;
-            _mSpriteRenderer.flipX = bIsGoingRight;
+            _isGoingRight = true;
+            _mSpriteRenderer.flipX = _isGoingRight;
         }
         if (Input.GetKeyDown("d"))
         {
-            bIsGoingRight = false;
-            _mSpriteRenderer.flipX = bIsGoingRight;
+            _isGoingRight = false;
+            _mSpriteRenderer.flipX = _isGoingRight;
         }
 
         // JUMPING
         //float verticalInput = Input.GetAxis("Vertical"); // this gives an absurd boost, I don't know why
-        if ((Input.GetKeyDown("space") || Input.GetKeyDown("up")) && !isJumping)
+        if ((Input.GetKeyDown("space") || Input.GetKeyDown("up")) && !_isJumping)
         {
-            rb2D.velocity += new Vector2(0f, _jumpingSpeed);
+            _rb2D.velocity += new Vector2(0f, _jumpingSpeed);
             // Animation
-            animator.SetBool("IsJumpingAni", true);
+            _animator.SetBool("IsJumpingAni", true);
             // Sound
-            soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerJump);
+            _soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerJump);
         }
         
-        if (UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
+        if (_UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown) 
         // Bug: key gedrückt halten wird nicht erkannt...
         {
             SceneManager.LoadScene(0);
@@ -109,9 +111,9 @@ public class PlayerController : MonoBehaviour
     // plays walking sound and waits for a certain time so that walking doesn't sound like a machine gun
     IEnumerator WalkingSound()
     {
-        soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
+        _soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerMove);
         yield return new WaitForSeconds(0.5f);
-        playingWalking = false;
+        _playingWalking = false;
     }
 
     
@@ -121,7 +123,7 @@ public class PlayerController : MonoBehaviour
         //bool visible = this.gameObject.GetComponent<Renderer>(); 
         //visible = false;// Destroy(this.gameObject); //Bug: Problem with Camera
         _mSpriteRenderer.enabled = false;
-        UIscript.gameOverUI();
+        _UIscript.gameOverUI();
 
     }
     
@@ -159,14 +161,14 @@ public class PlayerController : MonoBehaviour
     // waits for the clip to end and calls the usual damage routines afterwards 
     IEnumerator TakeDamageAfterClip()
     {
-        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
+        float cliplength = _soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.DamageTaken);
         StartCoroutine(PlayerDeathAnimation());
         yield return new WaitForSeconds(cliplength);
         GameStats.lifes -= 1;
         // reset coins collected in that level
-        GameStats.coins = GameStats.coins - levelCoins;
-        levelCoins = 0;
-        UIscript.updateUI();
+        GameStats.coins = GameStats.coins - _levelCoins;
+        _levelCoins = 0;
+        _UIscript.updateUI();
         if (GameStats.lifes < 1)
         {
             gameOver();
@@ -175,7 +177,7 @@ public class PlayerController : MonoBehaviour
         {
             UnityEngine.Debug.Log("took damage");
             // reloads level, so coins and enemies will reappear
-            SceneManager.LoadScene(sceneID);
+            SceneManager.LoadScene(_sceneID);
         }
     }
     
@@ -207,25 +209,25 @@ public class PlayerController : MonoBehaviour
     public void CollectCoin()
     {
         GameStats.coins += 1;
-        levelCoins += 1;
-        soundManagerScript.PlaySound(SoundManager.SoundOptions.CoinCollected);
+        _levelCoins += 1;
+        _soundManagerScript.PlaySound(SoundManager.SoundOptions.CoinCollected);
         
         if (GameStats.coins >= 3)
         {
             GameStats.lifes += 1;
             GameStats.coins = 0;
-            levelCoins = 0;
-            soundManagerScript.PlaySound(SoundManager.SoundOptions.LifeGained);
+            _levelCoins = 0;
+            _soundManagerScript.PlaySound(SoundManager.SoundOptions.LifeGained);
         }
-        UIscript.updateUI();
+        _UIscript.updateUI();
     }
 
 
     // has to be called by the finish line trigger event
     public void OnLevelSwitch()
     {
-        levelCoins = 0;
-        float cliplength = soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.FinishReached);
+        _levelCoins = 0;
+        float cliplength = _soundManagerScript.PlaySoundFloat(SoundManager.SoundOptions.FinishReached);
         StartCoroutine(LevelSwitch(cliplength));
         /*
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
@@ -257,13 +259,13 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(PlayerDeathAnimation());
         yield return new WaitForSeconds(cliplength);
         // during the first run the times are intialized as 0 and calling Min() would just leave them at 0
-        if (GameStats.runTimes[sceneID - 1] != 0)
+        if (GameStats.runTimes[_sceneID - 1] != 0)
         {
-            GameStats.runTimes[sceneID - 1] = Math.Min(GameStats.runTimes[sceneID - 1], Time.timeSinceLevelLoad);
+            GameStats.runTimes[_sceneID - 1] = Math.Min(GameStats.runTimes[_sceneID - 1], Time.timeSinceLevelLoad);
         }
         else
         {
-            GameStats.runTimes[sceneID - 1] = Time.timeSinceLevelLoad;
+            GameStats.runTimes[_sceneID - 1] = Time.timeSinceLevelLoad;
         }
 
         try
@@ -275,7 +277,7 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("Path Empty, run times not saved!");
         }
         
-        SceneManager.LoadScene(sceneID + 1);
+        SceneManager.LoadScene(_sceneID + 1);
     }
 
 
@@ -286,11 +288,11 @@ public class PlayerController : MonoBehaviour
         {
             // prevents a jump if the player only touches the platform from the side
             if (transform.position.y >= (other.transform.position.y + 0.9))
-                isJumping = false; 
+                _isJumping = false; 
             // Animation
-            animator.SetBool("IsJumpingAni", false);
+            _animator.SetBool("IsJumpingAni", false);
             // Sound
-            soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerLand);
+            _soundManagerScript.PlaySound(SoundManager.SoundOptions.PlayerLand);
         }
 
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Spike"))
@@ -299,9 +301,9 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.CompareTag("Enemy") && transform.position.y > (other.transform.position.y + 0.8))
             {
                 Destroy(other.gameObject);
-                rb2D.velocity += new Vector2(0f, _jumpingSpeed * 0.5f); // give a little boost upwards when enemy is destroyed
+                _rb2D.velocity += new Vector2(0f, _jumpingSpeed * 0.5f); // give a little boost upwards when enemy is destroyed
                 // sound
-                soundManagerScript.PlaySound(SoundManager.SoundOptions.EnemyKilled);
+                _soundManagerScript.PlaySound(SoundManager.SoundOptions.EnemyKilled);
             }
 
             else
@@ -329,7 +331,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
             if (transform.position.y >= (other.transform.position.y + 0.9))
-                isJumping = false;
+                _isJumping = false;
         }
     }
     
@@ -339,7 +341,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Platform") || other.gameObject.CompareTag("Enemy"))
         {
-            isJumping = true;
+            _isJumping = true;
         }
     }
 }

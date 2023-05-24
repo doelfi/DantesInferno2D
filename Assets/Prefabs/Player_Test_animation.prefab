@@ -16,7 +16,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1083592090862999508, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
+      propertyPath: _UIcanvas
+      value: 
+      objectReference: {fileID: 7652605074464247139, guid: 77b01a41973494746910d7b8fbbac67a, type: 3}
+    - target: {fileID: 1083592090862999508, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
       propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 5671511917910307592, guid: 6a5f4454b2173144e918c0a134b087c9, type: 3}
+    - target: {fileID: 1083592090862999508, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}
+      propertyPath: _soundManager
       value: 
       objectReference: {fileID: 5671511917910307592, guid: 6a5f4454b2173144e918c0a134b087c9, type: 3}
     - target: {fileID: 1083592090862999510, guid: 3f46b74f5da1f8d4eb4c26ef51610086, type: 3}

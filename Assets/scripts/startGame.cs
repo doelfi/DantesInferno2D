@@ -8,7 +8,7 @@ using System.IO;
 public class startGame : MonoBehaviour
 {
     // path to the file that contains the speed run times
-    private string runTimesPath;
+    private string _runTimesPath;
     
     public void OnStartPress()
     {
@@ -25,16 +25,16 @@ public class startGame : MonoBehaviour
     private void ReadRunTimes()
     {
         // Create File if it doesn't exist
-        if (!File.Exists(runTimesPath))
+        if (!File.Exists(_runTimesPath))
         {
             for (int i = 0; i < 6; i++)
             {
-                File.AppendAllText(runTimesPath, "0\n");
+                File.AppendAllText(_runTimesPath, "0\n");
             }
         }
         
         // Read content into the array stored in GameStats
-        IEnumerable<string> content = File.ReadLines(runTimesPath);
+        IEnumerable<string> content = File.ReadLines(_runTimesPath);
         int n = 0;
         foreach (string line in content)
         {
@@ -49,8 +49,8 @@ public class startGame : MonoBehaviour
     
     void Start()
     {
-        runTimesPath = Application.dataPath + "/SpeedRunTimes.txt";
-        GameStats.runTimePath = runTimesPath;
+        _runTimesPath = Application.dataPath + "/SpeedRunTimes.txt";
+        GameStats.runTimePath = _runTimesPath;
         ReadRunTimes();
     }
 }

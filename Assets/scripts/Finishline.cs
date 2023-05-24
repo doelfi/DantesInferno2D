@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Finishline : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
-    private PlayerController playerScript;
+    private GameObject _player;
+    private PlayerController _playerScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = player.GetComponent<PlayerController>();
+        _playerScript = _player.GetComponent<PlayerController>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -19,7 +20,7 @@ public class Finishline : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             UnityEngine.Debug.Log("finish line reached");
-            playerScript.OnLevelSwitch();
+            _playerScript.OnLevelSwitch();
         }
     }
 }

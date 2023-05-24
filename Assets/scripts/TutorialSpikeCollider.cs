@@ -6,12 +6,12 @@ public class TutorialSpikeCollider : MonoBehaviour
 {
     [SerializeField]
     public GameObject canvas;
-    private TutorialUI messageScript;
+    private TutorialUI _messageScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        messageScript = canvas.GetComponent<TutorialUI>();
+        _messageScript = canvas.GetComponent<TutorialUI>();
     }
 
     void OnTriggerEnter2D(Collider2D other) 
@@ -19,7 +19,7 @@ public class TutorialSpikeCollider : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             string spikeCollider_text = "Collect the coin.";//"Nice. Now collect the coin. Coins may be useful sometime.";
-            messageScript.Tutorial(ref spikeCollider_text);
+            _messageScript.Tutorial(ref spikeCollider_text);
         }
     }
 }
