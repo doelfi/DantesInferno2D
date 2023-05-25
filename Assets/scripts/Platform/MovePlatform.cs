@@ -55,8 +55,6 @@ public class MovePlatform : MonoBehaviour
                 yield return null;
             }
         }
-
-
     }
 
     void OnCollisionEnter2D(Collision2D other)

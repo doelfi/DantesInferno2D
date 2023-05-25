@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 
 public class TriggerMovePlatform : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject _platform;
     private MovePlatformOnTrigger _script;
@@ -22,5 +21,4 @@ public class TriggerMovePlatform : MonoBehaviour
             _script.StartMoving();
         }
     }
-
 }

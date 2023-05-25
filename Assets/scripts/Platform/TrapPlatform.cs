@@ -7,8 +7,7 @@ public class TrapPlatform : MonoBehaviour
 {
     private bool _triggered = false;
     private SpriteRenderer _mSpriteRenderer;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _mSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -23,6 +22,7 @@ public class TrapPlatform : MonoBehaviour
         _triggered = true;
     }
 
+    // reduces the alpha value over a short time so it looks like the platform disappears
     IEnumerator DisappearAnimation()
     {
         for (int i = 0; i < 10; i++)

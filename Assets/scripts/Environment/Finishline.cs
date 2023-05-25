@@ -8,8 +8,7 @@ public class Finishline : MonoBehaviour
     [SerializeField]
     private GameObject _player;
     private PlayerController _playerScript;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _playerScript = _player.GetComponent<PlayerController>();

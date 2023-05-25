@@ -14,8 +14,8 @@ public class MovePlatformOnTrigger : MonoBehaviour
         StartCoroutine(MovePlatform());
     }
 
-    // Make Start a coroutine that begins 
-    // as soon as our object is enabled.
+    // this is the same as the MovePlatform function for every other platform
+    // it just get's called on trigger instead of on start
     IEnumerator MovePlatform()
     {
 
@@ -59,8 +59,6 @@ public class MovePlatformOnTrigger : MonoBehaviour
                 yield return null;
             }
         }
-
-
     }
 
     void OnCollisionEnter2D(Collision2D other)

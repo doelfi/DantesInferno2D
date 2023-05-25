@@ -11,23 +11,10 @@ public class TriggerMultipleSpikes : MonoBehaviour
     [FormerlySerializedAs("timeBetweenSpikes")] [SerializeField]
     private float _timeBetweenSpikes;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator DropSpikes()
     {
         foreach (var spike in _spikes)
         {
-                       
             spike.GetComponent<Rigidbody2D>().gravityScale = 1;
 
             float counter = 0;
