@@ -32,6 +32,6 @@ public class UIcontroller : MonoBehaviour
 
     public void Victory()
     {
-        victory_panel.text = "You win";
+        gameOver_panel.text = "You win";
     }
 }
