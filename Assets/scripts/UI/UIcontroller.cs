@@ -9,6 +9,7 @@ public class UIcontroller : MonoBehaviour
 
     public TMP_Text panel;
     public TMP_Text gameOver_panel;
+    public TMP_Text victory_panel;
 
     // FIXME: I don't know why but this does not get called on start up
     // My current fix is to call the updateUI() function from the start of the player
@@ -27,5 +28,10 @@ public class UIcontroller : MonoBehaviour
     public void gameOverUI()
     {
         gameOver_panel.text = "Game Over"; 
+    } 
+
+    public void Victory()
+    {
+        victory_panel.text = "You win";
     }
 }

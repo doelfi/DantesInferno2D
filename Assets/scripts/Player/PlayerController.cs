@@ -101,7 +101,12 @@ public class PlayerController : MonoBehaviour
         if (_UIscript.gameOver_panel.text == "Game Over" && Input.anyKeyDown)
         {
             SceneManager.LoadScene(0);
-        }      
+        }
+
+        if (_UIscript.victory_panel.text == "You win" && Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(0);
+        }       
     }
 
     // plays walking sound and waits for a certain time so that walking doesn't sound like a machine gun
