@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MovePlatformOnTrigger : MonoBehaviour
 {
-    // Set your parameters in the Inspector.
+    // This is the same as the MovePlatform function for every other platform.
+    // It just gets called on trigger instead of on start.
+
     public Vector3 targetOffset = Vector3.right * 10f;
     public float speed = 1f;
     private Vector3 _startPosition;
@@ -14,25 +16,20 @@ public class MovePlatformOnTrigger : MonoBehaviour
         StartCoroutine(MovePlatform());
     }
 
-    // this is the same as the MovePlatform function for every other platform
-    // it just get's called on trigger instead of on start
     IEnumerator MovePlatform()
     {
 
         _startPosition = transform.position;
 
-        // Then, pick our destination point offset from our current location.
+        // Picks the destination point offset from the current location.
         Vector3 targetPosition = transform.position + targetOffset;
 
-        // I'm sure there is a better way to solve this
-        // But it works.
         while (true)
         {
-            // Loop until we're within a certain tolerance of our target.
-            // might have to adjust the tolerance
+            // Loop until we are within a certain tolerance of our target.
+
             while (Vector3.SqrMagnitude(transform.position - targetPosition) > 0.1)
             {
-
                 // Move one step toward the target at our given speed.
                 transform.position = Vector3.MoveTowards(
                       transform.position,
@@ -44,10 +41,9 @@ public class MovePlatformOnTrigger : MonoBehaviour
                 yield return null;
             }
 
-            // going back to the starting position
+            // Going back to the starting position.
             while (Vector3.SqrMagnitude(transform.position - _startPosition) > 0.1)
             {
-
                 // Move one step toward the target at our given speed.
                 transform.position = Vector3.MoveTowards(
                       transform.position,
@@ -63,6 +59,9 @@ public class MovePlatformOnTrigger : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        // If the Player collides with the moving platform (i.e stands on it)
+        // the movement of the platform is added to the Player so that
+        // the Player moves with the platform.
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.SetParent(transform, true);
@@ -71,6 +70,8 @@ public class MovePlatformOnTrigger : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D other)
     {
+        // If the Player leaves the moving platform, the additional movement 
+        // is removed.
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.SetParent(null);

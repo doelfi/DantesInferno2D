@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TutorialSpikeCollider : MonoBehaviour
 {
+    // Displays a text on the screen in the tutorial level.
+
     [SerializeField]
     public GameObject canvas;
     private TutorialUI _messageScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         _messageScript = canvas.GetComponent<TutorialUI>();
@@ -18,7 +19,7 @@ public class TutorialSpikeCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            string spikeCollider_text = "Collect the coin.";//"Nice. Now collect the coin. Coins may be useful sometime.";
+            string spikeCollider_text = "Collect the coin.";
             _messageScript.Tutorial(ref spikeCollider_text);
         }
     }

@@ -5,24 +5,24 @@ using UnityEngine.Serialization;
 
 public class CameraMovement : MonoBehaviour
 { 
+    // The Camera is always following the movement of the Player
+    // so that the PLayer is always in the middle of the screen.
 
     [SerializeField]
     private Transform _target;
     public Vector3 offset;
 
-    // Start is called before the first frame update
     void Start()
     {
         offset = transform.position - _target.transform.position;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
-        // NULL CHECK  
+        // Null check  
         if (_target != null)
         {
-            // ADD OFFSET - to our position in order to depict the player properly
+            // Add an offset to our position in order to depict the player properly
             Vector3 newPosition = _target.transform.position + offset;
             transform.position = newPosition;
         }

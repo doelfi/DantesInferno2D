@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    
-    // there are multiple audiosources now
-    // the function just takes the first that is not currently playing anything
-    // this allows us to play multiple sounds at once
+    // Plays sound clips based on the action the Player is taking in the game.
+    // The function just takes the first that is not currently playing anything,
+    // this makes it possible to play multiple sounds at once.
+
     private AudioSource[] _audioSources;
     
-    // all possible Sound Effects
+    // All possible sound effects.
     public enum SoundOptions
     {
         PlayerJump,
@@ -23,8 +23,8 @@ public class SoundManager : MonoBehaviour
         FinishReached,
     }
     
-    // this simulates a dictionary in the editor
-    // since dictionaries can not be filled over the editor
+    // Simulates a dictionary in the editor
+    // since dictionaries can not be filled over the editor.
     [System.Serializable]
     public struct AudioClips
     {
@@ -36,12 +36,14 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
+        // Gets the audio sources the play them.
         _audioSources = gameObject.GetComponents<AudioSource>();
     }
     
-    // takes one of the Options listed above and plays it once
+
     public void PlaySound(SoundOptions name)
     {
+        // Takes one of the options listed above and plays it once
         foreach (AudioClips entry in SoundAssets)
         {
             if (entry.name == name)
@@ -60,11 +62,12 @@ public class SoundManager : MonoBehaviour
         UnityEngine.Debug.LogError("Clip " + name + " not found");
     }
     
-    // takes one of the Options listed above and plays it once
-    // returns the length of the played audio clip
-    // this is useful for the coroutines who should wait for the duration of the clip
     public float PlaySoundFloat(SoundOptions name)
     {
+        // Takes one of the Options listed above and plays it once.
+        // Returns the length of the played audio clip.
+        // This is useful for the coroutines who should wait for the duration of the clip.
+        
         foreach (AudioClips entry in SoundAssets)
         {
             if (entry.name == name)

@@ -6,18 +6,21 @@ using TMPro;
 
 public class UIcontroller : MonoBehaviour
 {
+    // Displays the stats (lives and coins) and game ending on the screen.
+
     public TMP_Text panel;
     public TMP_Text gameOver_panel;
     public TMP_Text victory_panel;
     
     void Start()
     {
-        panel.text = "Lifes: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
+        panel.text = "Lives: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
     }
 
     public void updateUI()
     {
-        panel.text = "Lifes: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
+        // Updates the UI if the Player loses or gains a life/ coins
+        panel.text = "Lives: " + GameStats.lifes.ToString() + " Coins: " + GameStats.coins.ToString();
     }
 
     public void gameOverUI()

@@ -5,6 +5,7 @@ using TMPro;
 
 public class TutorialUI : MonoBehaviour
 {
+    // Displays a text on the screen at the start of the tutorial level.
     public TMP_Text panel;
 
     void Start()

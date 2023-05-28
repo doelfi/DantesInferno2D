@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RemoveFallingSpikes : MonoBehaviour
 {
+    // Removes the falling spikes if they collide with an Enemy, the bottom line of the level 
+    // or the Player (the Player takes damage).
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy") || other.CompareTag("BottomLine"))

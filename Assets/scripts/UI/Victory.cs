@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Victory : MonoBehaviour
 {
+    // Loads the victory script if the Player collides with the trigger.
     [SerializeField]
     public GameObject canvas;
     private UIcontroller _UIScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         _UIScript = canvas.GetComponent<UIcontroller>();

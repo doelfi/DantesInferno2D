@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class TutorialCoinCollider : MonoBehaviour
 {
+    // Displays a text on the screen in the tutorial level.
+
     [SerializeField]
     public GameObject canvas;
     private TutorialUI _messageScript;
 
-    // Start is called before the first frame update
     void Start()
     {
         _messageScript = canvas.GetComponent<TutorialUI>();
@@ -16,9 +17,11 @@ public class TutorialCoinCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
+        // If the player reaches the collider, the text is displayed. 
+        
         if (other.CompareTag("Player"))
         {
-            string coinCollider_text = "Finish at the plastic flag.";//"Good job. Finish the level by touching the plastic flag.";
+            string coinCollider_text = "Finish at the plastic flag.";
             _messageScript.Tutorial(ref coinCollider_text);
         }
     }

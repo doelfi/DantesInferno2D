@@ -7,11 +7,13 @@ using System.IO;
 
 public class StartGame : MonoBehaviour
 {
-    // path to the file that contains the speed run times
+
+    // Path to the file that contains the speed run times.
     private string _runTimesPath;
     
     public void OnStartPress()
     {
+        // To start the game, the lifes, coins, and first level are initialized.
         GameStats.lifes = 3;
         GameStats.coins = 0;
         SceneManager.LoadScene(1);
@@ -19,6 +21,7 @@ public class StartGame : MonoBehaviour
 
     public void OnSpeedPress()
     {
+        // By clicking on the speed run times, the scene is loaded and times are displayed.
         SceneManager.LoadScene(7); 
     }
 
@@ -38,8 +41,8 @@ public class StartGame : MonoBehaviour
         int n = 0;
         foreach (string line in content)
         {
-            // german systems will use a ',' as a separator for floats when converting to a string
-            // we need to change it back in order to work with it correctly
+            // German systems use a ',' as a separator for floats when converting to a string.
+            // We need to change it back in order to work with it correctly.
             string correctLine = line.Replace(",", ".");
             double time = double.Parse(correctLine, CultureInfo.InvariantCulture);
             GameStats.runTimes[n] = time;

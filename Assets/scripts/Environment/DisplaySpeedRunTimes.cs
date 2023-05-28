@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class DisplaySpeedRunTimes : MonoBehaviour
 {
-
+    // Displays the times that were spend in each level at the end of the game
+    // (either if Player dies or if the game is succesfully finished).
     public TMP_Text panel;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Counting trough the runTimes and adding the times to a string that is displayed
         string concatedTimes = "Your Times \n";
 
         int i = 0;
@@ -27,6 +28,7 @@ public class DisplaySpeedRunTimes : MonoBehaviour
 
     public void OnMainPress()
     {
+        // Loads the Scene where the times are displayed.
         SceneManager.LoadScene(0);
     }
     

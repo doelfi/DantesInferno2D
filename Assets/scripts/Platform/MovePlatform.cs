@@ -5,31 +5,29 @@ using UnityEngine;
 
 public class MovePlatform : MonoBehaviour
 {
-    // Set your parameters in the Inspector.
+    // Lets the platform move from left to right and transport the Player.
+
     public Vector3 targetOffset = Vector3.right * 10f;
     public float speed = 1f;
     private Vector3 _startPosition;
 
-    // Make Start a coroutine that begins 
-    // as soon as our object is enabled.
+    
     IEnumerator Start()
     {
+        // Starts a coroutine that begins as soon as the object is enabled.
 
         _startPosition = transform.position;
 
-        // Then, pick our destination point offset from our current location.
+        // Picks the destination point offset from the current location.
         Vector3 targetPosition = transform.position + targetOffset;
 
-        // I'm sure there is a better way to solve this
-        // But it works.
         while (true)
         {
-            // Loop until we're within a certain tolerance of our target.
-            // might have to adjust the tolerance
+            // Loop until we are within a certain tolerance of our target.
+
             while (Vector3.SqrMagnitude(transform.position - targetPosition) > 0.1)
             {
-
-                // Move one step toward the target at our given speed.
+                // Move one step toward the target at the given speed.
                 transform.position = Vector3.MoveTowards(
                       transform.position,
                       targetPosition,
@@ -40,11 +38,10 @@ public class MovePlatform : MonoBehaviour
                 yield return null;
             }
 
-            // going back to the starting position
+            // Going back to the starting position.
             while (Vector3.SqrMagnitude(transform.position - _startPosition) > 0.1)
             {
-
-                // Move one step toward the target at our given speed.
+                // Move one step toward the target at the given speed.
                 transform.position = Vector3.MoveTowards(
                       transform.position,
                       _startPosition,
@@ -59,13 +56,19 @@ public class MovePlatform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player")){
+        // If the Player collides with the moving platform (i.e stands on it)
+        // the movement of the platform is added to the Player so that
+        // the Player moves with the platform.
+        if (other.gameObject.CompareTag("Player"))
+        {
             other.gameObject.transform.SetParent(transform, true);
         }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
+        // If the Player leaves the moving platform, the additional movement 
+        // is removed.
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.SetParent(null);
