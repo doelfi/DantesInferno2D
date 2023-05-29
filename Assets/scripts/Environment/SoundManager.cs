@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
     
     // Simulates a dictionary in the editor
     // since dictionaries can not be filled over the editor.
+    // an audio clip is always a combination of one of the possible options from above and the actual clip
     [System.Serializable]
     public struct AudioClips
     {
@@ -36,14 +37,14 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
-        // Gets the audio sources the play them.
+        // Gets the list of audio sources to play from.
         _audioSources = gameObject.GetComponents<AudioSource>();
     }
     
 
+    // goes through the list of audio sources and chooses the first that is not currently playing anything
     public void PlaySound(SoundOptions name)
     {
-        // Takes one of the options listed above and plays it once
         foreach (AudioClips entry in SoundAssets)
         {
             if (entry.name == name)
@@ -59,15 +60,12 @@ public class SoundManager : MonoBehaviour
                 }
             }
         }
-        UnityEngine.Debug.LogError("Clip " + name + " not found");
     }
     
+    // does the same as the one above but returns the length of the clip played as a float
+    // this is helpful when making the game wait for the clip to finish (as with taking damage or reaching the goal)
     public float PlaySoundFloat(SoundOptions name)
     {
-        // Takes one of the Options listed above and plays it once.
-        // Returns the length of the played audio clip.
-        // This is useful for the coroutines who should wait for the duration of the clip.
-        
         foreach (AudioClips entry in SoundAssets)
         {
             if (entry.name == name)
@@ -83,7 +81,6 @@ public class SoundManager : MonoBehaviour
                 }
             }
         }
-        UnityEngine.Debug.LogError("Clip " + name + " not found");
         return 0;
     }
 }
