@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private GameObject _UIcanvas;
     private UIcontroller _UIscript;
     private int _levelCoins = 0;
+    private bool _damageTaken = false;
 
     // Sounds
     [SerializeField]
@@ -129,7 +130,12 @@ public class PlayerController : MonoBehaviour
     
     public void TakeDamage()
     {
-        StartCoroutine(TakeDamageAfterClip());
+        // makes sure that you can't take another hit while the animation for the first one is still playing
+        if (!_damageTaken)
+        {
+            _damageTaken = true;
+            StartCoroutine(TakeDamageAfterClip());
+        }
     }
     
      
