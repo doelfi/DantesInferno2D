@@ -14,12 +14,13 @@ public class TriggerMultipleSpikes : MonoBehaviour
     [FormerlySerializedAs("timeBetweenSpikes")] [SerializeField]
     private float _timeBetweenSpikes;
 
+    private bool _triggered = false;
+
     IEnumerator DropSpikes()
     {
         // Goes trough each spike in the _spikes group and let them fall down
         // by adding a gravity scale. Spikes only fall if the timeBetweenSpikes 
         // counter is satisfied.
-
         foreach (var spike in _spikes)
         {
             spike.GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -36,9 +37,10 @@ public class TriggerMultipleSpikes : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // If the Player collides with the Collider, the Coroutine DropSpikes is called.
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !_triggered)
         {
             StartCoroutine(DropSpikes());
+            _triggered = true;
         }
     }
 }
