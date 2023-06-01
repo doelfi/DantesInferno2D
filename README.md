@@ -1,6 +1,6 @@
 # ![Dante](https://github.com/doelfi/Unity/assets/91377218/24d3af5d-f64d-49c1-80c8-3013f73f6c69) Dante's Inferno 2D
 
-DantesInferno2D is a jump and run game following Dante through the circles of hell. Each circle bares its own obstacles varying from dangerous spikes to insidious enemies attacking Dante. 
+Dante's Inferno 2D is a jump and run game following Dante through the circles of hell. Each circle bares its own obstacles varying from dangerous spikes to insidious enemies attacking Dante. 
 But neither can stop Dantes curiosity for the next circle of hell. So press start and join Dante on his journey through hell. 
 
 
