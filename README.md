@@ -5,13 +5,13 @@ But neither can stop Dantes curiosity for the next circle of hell. So press star
 
 
 Starting in circle 1 Limbo, the first circle, one gets used to playing by following a simple tutorial. 
-In Lust the second circle the first enemy occurs. 
-Then, in Gluttony, precice jumping skills are required to reach the next level. 
+In Lust, the second circle, the first enemy occurs. 
+Then, in Gluttony, precise jumping skills are required to reach the next level. 
 Afterwards, the fourth circle Greed shows who has a good balance and who dares to collect another coin. 
-Getting closer to the end circe No 5 Anger provokes the player even more - it is hell after all. 
+Getting closer to the end circle no. 5 Anger provokes the player even more - it is hell after all. 
 Last but not least, the name of the last circle Fraud already tells that not everything is as it seems. 
 
-So be careful and don't die
+So be careful and don't die - 
 to keep hell away.  
 
 # Features 
